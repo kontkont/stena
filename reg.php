@@ -6,13 +6,14 @@
 </form>
 
 <?php
-$connection = new PDO('mysql:host=localhost; dbname=a0263496_stena; charser=utf8',
-    'dbname=a0263496_stena', '123');
+
+include("connection_stena.php");
+$connection = new PDO("$bdInfo", "$bdUser", "$bdPass");
 
 $newLogin=$_POST['login'];
 $newPassword=$_POST['password'];
 
-$allLogin = $connection->query("SELECT * FROM users");
+$allLogin = $connection->query("SELECT * FROM users_stena");
 $allLogin = $allLogin->fetchAll();
 
 foreach ($allLogin as $log) {
@@ -22,7 +23,7 @@ foreach ($allLogin as $log) {
         echo 'Пользователь с таким логином уже существует';
         exit;
     } else {
-        $connection->query("INSERT INTO users (login, password) VALUE ('$newLogin','$newPassword')");
+        $connection->query("INSERT INTO users_stena (login, password) VALUE ('$newLogin','$newPassword')");
         echo 'Вы зарегистрировались';
         exit;
     }
