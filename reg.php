@@ -13,18 +13,29 @@ $connection = new PDO("$bdInfo", "$bdUser", "$bdPass");
 $newLogin=$_POST['login'];
 $newPassword=$_POST['password'];
 
-$allLogin = $connection->query("SELECT * FROM users_stena");
-$allLogin = $allLogin->fetchAll();
+$allLogin = $connection->query("SELECT login FROM users_stena");
+$allLogin = $allLogin->fetchAll(PDO::FETCH_COLUMN);
 
-foreach ($allLogin as $log) {
-    if (empty($_POST['login'] )) {
-        exit;
-    } elseif ($newLogin==$log['login']) {
-        echo 'Пользователь с таким логином уже существует';
-        exit;
-    } else {
-        $connection->query("INSERT INTO users_stena (login, password) VALUE ('$newLogin','$newPassword')");
-        echo 'Вы зарегистрировались';
+var_dump($allLogin);
+echo "<br>";
+
+foreach ($allLogin as $log)
+{
+    if ($newLogin == $log && $_POST['login'])
+    {
+        echo 'Такой пользователь уже существует. ';
+        $trueLogin = TRUE;
         exit;
     }
+    elseif ($newLogin !== $log && $_POST['login'])
+    {
+        $trueLogin = FALSE;
+    }
+}
+
+
+if ($trueLogin == FALSE && $_POST['login'])
+{
+    $connection->query("INSERT INTO users_stena (login, password) VALUE ('$newLogin','$newPassword')");
+    echo 'Вы зарегистрировались';
 }
