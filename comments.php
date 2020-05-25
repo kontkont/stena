@@ -1,33 +1,50 @@
-<p>Post comment:</p>
-<form action="" method="post">
-    <input type="text" placeholder="max 100 symbols" name="comment_stena" required>
-    <input type="submit" value="send">
-</form>
-
 <?php
+
 include("connection_stena.php");
 $connection = new PDO("$bdInfo", "$bdUser", "$bdPass");
 
-if ($_POST['comment_stena']) {
+include "function.php";
 
-    $newComment=$_POST['comment_stena'];
-    $connection->query("INSERT INTO comments_stena (comment) VALUE ('$newComment')");
+$allLogin = $connection->query("SELECT * FROM users_stena");
+$allLogin = $allLogin->fetchAll();
 
-    $allComments = $connection->query("SELECT * FROM comments_stena");
-    $allComments = $allComments->fetchAll();
-    $allComments = array_reverse ($allComments);
-
-    foreach ($allComments as $com)
+foreach ($allLogin as $log)
+{
+    if ($oldLogin == $log['login'] && $oldPassword == $log['password'])
     {
-        echo $com['comment'] . '<br>';
+        echo 'а вот тут я ничего пока что не смог сделать без кукисов <br>
+              по этому вы можете просто посмотреть тут комменты <br><br><br>';
+        include "comments_form.php";
+
+        if ($_POST['comment_stena'])
+        {
+            $oldLogin = $_POST['oldLogin'];
+            $newComment = $_POST['comment_stena'];
+            $connection->query("INSERT INTO comments_stena (comm_login, comment)
+                                         VALUE ('$oldLogin','$newComment')");
+        }
+
+        comments($connection);
+        exit;
     }
-} else {
-    $allComments = $connection->query("SELECT * FROM comments_stena");
-    $allComments = $allComments->fetchAll();
-    $allComments = array_reverse ($allComments);
-
-    foreach ($allComments as $com)
+    elseif ($oldLogin !== $log && $oldPassword !== $log['password'])
     {
-        echo $com['comment'] . '<br>';
+        //
     }
 }
+
+foreach ($allLogin as $log)
+{
+    if ($oldLogin == $log['login'] && $oldPassword == $log['password'])
+    {
+        $oldLogin = $_POST['oldLogin'];
+        $newComment = $_POST['comment_stena'];
+        $connection->query("INSERT INTO comments_stena (comm_login, comment)
+                                         VALUE ('$oldLogin','$newComment')");
+    }
+}
+
+?>
+
+
+
