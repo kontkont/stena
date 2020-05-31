@@ -26,3 +26,9 @@ alter table comments_stena
 			on update cascade;
 
 );
+
+alter table users_stena
+	add email VARCHAR(30) not null;
+
+create unique index users_stena_email_uindex
+	on users_stena (email);

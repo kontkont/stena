@@ -14,7 +14,10 @@ $profile = $profile->fetch();
 $hmComments = $connection->query("SELECT COUNT(*) FROM comments_stena WHERE comm_login = '$searchLogin';");
 $hmComments =$hmComments->fetch();
 
-echo "id - {$profile['id']} <br> Name - {$profile['login']} <br> Password - {$profile['password']} <br>";
+echo "id - {$profile['id']} <br> 
+      Name - {$profile['login']} <br>
+      Password - {$profile['password']} <br>
+      EMail - {$profile['email']} <br>";
 echo "Вы оставили комментариев - {$hmComments[0]} <br>";
 
 if ($_POST['unlogin'])
