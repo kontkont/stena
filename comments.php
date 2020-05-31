@@ -1,46 +1,30 @@
+<p>Написать комментарий:</p>
+<form action="" method="post">
+    <input type="text" placeholder="Максимум 100 символов" name="comment_stena" required>
+    <input type="submit" value="Отправить">
+</form>
+
 <?php
 
-include("connection_stena.php");
-$connection = new PDO("$bdInfo", "$bdUser", "$bdPass");
+include_once 'connection_stena.php';
 
-include "function.php";
+include_once "function.php";
 
-$allLogin = $connection->query("SELECT * FROM users_stena");
-$allLogin = $allLogin->fetchAll();
+$trueLoginComm = loginСheck($connection, $_SESSION, 'login', 'users_stena', 'login');
+$truePassComm = loginСheck($connection, $_SESSION, 'password', 'users_stena', 'password');
 
-foreach ($allLogin as $log)
+if ($trueLoginComm == TRUE && $truePassComm == TRUE)
 {
-    if ($oldLogin == $log['login'] && $oldPassword == $log['password'])
-    {
-        echo 'а вот тут я ничего пока что не смог сделать без кукисов <br>
-              по этому вы можете просто посмотреть тут комменты <br><br><br>';
-        include "comments_form.php";
+    comments($connection);
 
-        if ($_POST['comment_stena'])
-        {
-            $oldLogin = $_POST['oldLogin'];
-            $newComment = $_POST['comment_stena'];
-            $connection->query("INSERT INTO comments_stena (comm_login, comment)
-                                         VALUE ('$oldLogin','$newComment')");
-        }
-
-        comments($connection);
-        exit;
-    }
-    elseif ($oldLogin !== $log && $oldPassword !== $log['password'])
+    if ($_POST['comment_stena'])
     {
-        //
-    }
-}
-
-foreach ($allLogin as $log)
-{
-    if ($oldLogin == $log['login'] && $oldPassword == $log['password'])
-    {
-        $oldLogin = $_POST['oldLogin'];
+        $oldLogin = $_SESSION['login'];
         $newComment = $_POST['comment_stena'];
         $connection->query("INSERT INTO comments_stena (comm_login, comment)
                                          VALUE ('$oldLogin','$newComment')");
+
+        header('Location: index.php');
     }
 }
 

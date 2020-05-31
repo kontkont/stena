@@ -1,43 +1,33 @@
-<!--
-<p>Registration:</p>
+<p>Регистрация:</p>
 <form action="" method="post">
-    <input type="text" placeholder="Login" name="login" required>
-    <input type="text" placeholder="Password" name="password" required>
-    <input type="submit" value="send">
+    <input type="text" placeholder="Логин" name="newLogin" required>
+    <input type="text" placeholder="Пароль" name="newPassword" required>
+    <input type="submit" value="Зарегистрироваться">
 </form>
--->
 
 <?php
 
-include("connection_stena.php");
-$connection = new PDO("$bdInfo", "$bdUser", "$bdPass");
+include_once 'connection_stena.php';
 
-$newLogin=$_POST['login'];
-$newPassword=$_POST['password'];
+include_once 'function.php';
 
-$allLogin = $connection->query("SELECT login FROM users_stena");
-$allLogin = $allLogin->fetchAll(PDO::FETCH_COLUMN);
+$newLogin= $_POST['newLogin'];
+$newPassword=$_POST['newPassword'];
 
-foreach ($allLogin as $log)
-{
-    if ($newLogin == $log && $_POST['login'])
-    {
-        echo 'Такой пользователь уже существует. ';
-        include "authorization_form.php";
-        $trueLogin = TRUE;
-        exit;
-    }
-    elseif ($newLogin !== $log && $_POST['login'])
-    {
-        $trueLogin = FALSE;
-    }
-}
+$trueLoginReg = loginСheck($connection, $_POST, 'newLogin', 'users_stena', 'login');
 
-
-if ($trueLogin == FALSE && $_POST['login'])
+if ($trueLoginReg == FALSE && $newLogin)
 {
     $connection->query("INSERT INTO users_stena (login, password) VALUE ('$newLogin','$newPassword')");
-    echo 'Вы зарегистрировались';
+    $_SESSION['login'] = $newLogin;
+    $_SESSION['password'] = $newPassword;
+    echo 'Вы зарегистрировались. ';
+
+    header('Location: index.php');
+}
+elseif ($trueLoginReg !== FALSE && $newLogin)
+{
+    echo "Логин '$newLogin' уже занят. ";
 }
 
 ?>
