@@ -31,4 +31,13 @@ function loginСheck ($connection, $method, $postName, $table, $key)
     }
 }
 
+function showKeyValue ($connection, $value, $table, $whereKey, $whereKeyValue)
+{
+    $thisValue = $connection->query("SELECT * FROM `$table` WHERE `$whereKey` = '$whereKeyValue';");
+    $thisValue = $thisValue->fetch();
+    $thisValue = $thisValue["$value"];
+
+    return $thisValue;
+}
+
 ?>
