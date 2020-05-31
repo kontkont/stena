@@ -1,8 +1,14 @@
 <p>Написать комментарий:</p>
-<form action="" method="post">
-    <input type="text" placeholder="Максимум 100 символов" name="comment_stena" required>
-    <input type="submit" value="Отправить">
-</form>
+<table><tr><td>
+            <form action="" method="post">
+                <input type="text" placeholder="Максимум 100 символов" name="comment_stena" required>
+                <input type="submit" value="Отправить">
+            </form>
+        </td><td>
+            <form action="" method="post">
+                <input type="submit" name="update" value="Обновить">
+            </form>
+        </td></tr></table>
 
 <?php
 
@@ -26,6 +32,11 @@ if ($trueLoginComm == TRUE && $truePassComm == TRUE)
 
         header('Location: index.php');
     }
+}
+
+if ($_POST['update'])
+{
+    header('Location: index.php');
 }
 
 ?>
