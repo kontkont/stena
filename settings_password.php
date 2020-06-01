@@ -2,9 +2,9 @@
     <summary>Изменить пароль</summary>
 
     <form action="" method="post">
-        <input type="text" placeholder="Старый пароль" name="oldChangePassword" required>
-        <input type="text" placeholder="Новый пароль" name="changePasswordOne" required>
-        <input type="text" placeholder="Новый пароль еще раз" name="changePasswordTwo" required>
+        <input type="password" placeholder="Старый пароль" name="oldChangePassword" required>
+        <input type="password" placeholder="Новый пароль" name="changePasswordOne" required>
+        <input type="password" placeholder="Новый пароль еще раз" name="changePasswordTwo" required>
         <input type="submit" value="Изменить пароль">
     </form>
 </details>

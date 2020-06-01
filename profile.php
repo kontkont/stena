@@ -18,7 +18,7 @@ echo "id - {$profile['id']} <br>
       Login - {$profile['login']} <br>
       Nickname - {$profile['nickname']} <br>
       EMail - {$profile['email']} <br>
-      Password - {$profile['password']} <br>";
+      <details><summary>Show password</summary>Password - {$profile['password']}</details>";
 echo "Вы оставили комментариев - {$hmComments[0]} <br>";
 
 if ($_POST['unlogin'])

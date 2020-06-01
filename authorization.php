@@ -1,7 +1,7 @@
 <p>Авторизоваться:</p>
 <form action="" method="post">
     <input type="text" placeholder="Логин" name="oldLogin" required>
-    <input type="text" placeholder="Пароль" name="oldPassword" required>
+    <input type="password" placeholder="Пароль" name="oldPassword" required>
     <input type="submit" value="Войти">
 </form>
 

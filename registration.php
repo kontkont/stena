@@ -3,8 +3,8 @@
     <input type="text" placeholder="Логин" name="newLogin" required> <br>
     <p> <input type="text" placeholder="Никнейм" name="newNickname" > По умолчанию - 'Anonymous'</p> <br>
     <input type="text" placeholder="EMail" name="newMail" required> <br>
-    <input type="text" placeholder="Пароль" name="newPassword" required>
-    <input type="text" placeholder="Пароль еще раз" name="newPasswordTwo" required>
+    <input type="password" placeholder="Пароль" name="newPassword" required>
+    <input type="password" placeholder="Пароль еще раз" name="newPasswordTwo" required>
     <input type="submit" value="Зарегистрироваться">
 </form>
 
