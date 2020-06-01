@@ -9,7 +9,6 @@
                 <input type="submit" name="update" value="Обновить">
             </form>
         </td></tr></table>
-
 <?php
 
 include_once 'connection_stena.php';
@@ -27,8 +26,11 @@ if ($trueLoginComm == TRUE && $truePassComm == TRUE)
     {
         $oldLogin = $_SESSION['login'];
         $newComment = $_POST['comment_stena'];
-        $connection->query("INSERT INTO comments_stena (comm_login, comment)
-                                         VALUE ('$oldLogin','$newComment')");
+
+        $oldNickname = showKeyValue($connection, 'nickname', 'users_stena', 'login', $oldLogin);
+
+        $connection->query("INSERT INTO comments_stena (comm_login, comm_nickname, comment)
+                                         VALUE ('$oldLogin', '$oldNickname', '$newComment')");
 
         header('Location: index.php');
     }
