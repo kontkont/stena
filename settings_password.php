@@ -15,12 +15,13 @@ include_once 'connection_stena.php';
 
 include_once "function.php";
 
+$newChangePassword = $_POST['changePasswordOne'];
+$oldChangeLogin = $_SESSION['login'];
+
 if ($_POST['oldChangePassword'] && $_SESSION['password'] == $_POST['oldChangePassword'])
 {
     if ($_POST['changePasswordOne'] == $_POST['changePasswordTwo'])
     {
-        $newChangePassword = $_POST['changePasswordOne'];
-        $oldChangeLogin = $_SESSION['login'];
         $connection->query("UPDATE users_stena 
                                      SET password ='$newChangePassword' 
                                      WHERE login = '$oldChangeLogin';");

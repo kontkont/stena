@@ -12,6 +12,7 @@ if (!$_SESSION['login'] && !$_SESSION['password'])
 elseif ($_SESSION['login'] && $_SESSION['password'])
 {
     include 'profile.php';
+    include 'settings_nickname.php';
     include 'settings_mail.php';
     include 'settings_password.php';
     include 'comments.php';

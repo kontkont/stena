@@ -8,8 +8,7 @@ function comments ($connection)
 
     foreach ($allComments as $com)
     {
-        echo "{$com['comm_login']} {$com['time']} № {$com['id']} <br> {$com['comment']} <br><br><br>";
-        //echo "post by '{$com['comm_login']}' in {$com['time']}: <br> {$com['comment']} <br><br><br>";
+        echo "{$com['comm_nickname']} {$com['time']} № {$com['id']} <br> {$com['comment']} <br><br><br>";
     }
 }
 

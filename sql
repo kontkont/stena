@@ -32,3 +32,9 @@ alter table users_stena
 
 create unique index users_stena_email_uindex
 	on users_stena (email);
+
+alter table users_stena
+	add nickname VARCHAR(30) not null after login;
+
+alter table comments_stena
+	add comm_nickname VARCHAR(30) not null after comm_login;
