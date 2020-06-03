@@ -38,3 +38,5 @@ alter table users_stena
 
 alter table comments_stena
 	add comm_nickname VARCHAR(30) not null after comm_login;
+
+alter table users_stena modify nickname varchar(30) default 'Anonymous';

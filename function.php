@@ -2,9 +2,8 @@
 
 function comments ($connection)
 {
-    $allComments = $connection->query("SELECT * FROM comments_stena");
+    $allComments = $connection->query("SELECT * FROM comments_stena ORDER BY time DESC");
     $allComments = $allComments->fetchAll();
-    $allComments = array_reverse ($allComments);
 
     foreach ($allComments as $com)
     {

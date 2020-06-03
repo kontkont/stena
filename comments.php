@@ -25,12 +25,16 @@ if ($trueLoginComm == TRUE && $truePassComm == TRUE)
     if ($_POST['comment_stena'])
     {
         $oldLogin = $_SESSION['login'];
-        $newComment = $_POST['comment_stena'];
+        $newComment = htmlspecialchars($_POST['comment_stena']);
 
         $oldNickname = showKeyValue($connection, 'nickname', 'users_stena', 'login', $oldLogin);
 
-        $connection->query("INSERT INTO comments_stena (comm_login, comm_nickname, comment)
-                                         VALUE ('$oldLogin', '$oldNickname', '$newComment')");
+        $makeComment = $connection->prepare("INSERT INTO comments_stena 
+                                     SET comm_login = :comm_login, 
+                                         comm_nickname = '$oldNickname', 
+                                         comment = :comment");
+        $arrMakeComment = ['comm_login'=>$oldLogin, 'comment'=>$newComment];
+        $makeComment->execute($arrMakeComment);
 
         header('Location: index.php');
     }

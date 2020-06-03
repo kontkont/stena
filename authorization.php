@@ -11,8 +11,8 @@ include_once 'connection_stena.php';
 
 include_once 'function.php';
 
-$oldLogin=$_POST['oldLogin'];
-$oldPassword=$_POST['oldPassword'];
+$oldLogin=htmlspecialchars($_POST['oldLogin']);
+$oldPassword=htmlspecialchars($_POST['oldPassword']);
 
 $trueLoginAuth = loginСheck($connection, $_POST, 'oldLogin', 'users_stena', 'login');
 $truePassAuth = loginСheck($connection, $_POST, 'oldPassword', 'users_stena', 'password');

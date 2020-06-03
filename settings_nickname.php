@@ -13,14 +13,16 @@ include_once 'connection_stena.php';
 
 include_once "function.php";
 
-$newChangeNickname = $_POST['changeNickname'];
+$newChangeNickname = htmlspecialchars($_POST['changeNickname']);
 $loginChangeNickname = $_SESSION['login'];
 
 if ($newChangeNickname)
 {
-    $connection->query("UPDATE users_stena 
-                                     SET nickname ='$newChangeNickname' 
-                                     WHERE login = '$loginChangeNickname';");
+    $makeChangeNickname = $connection->prepare("UPDATE users_stena 
+                                     SET nickname =:nickname 
+                                     WHERE login =:login;");
+    $arrMakeChangeNickname = ['nickname'=>$newChangeNickname, 'login'=>$loginChangeNickname];
+    $makeChangeNickname->execute($arrMakeChangeNickname);
 
     header('Location: index.php');
 }

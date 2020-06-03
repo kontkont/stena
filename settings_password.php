@@ -22,9 +22,11 @@ if ($_POST['oldChangePassword'] && $_SESSION['password'] == $_POST['oldChangePas
 {
     if ($_POST['changePasswordOne'] == $_POST['changePasswordTwo'])
     {
-        $connection->query("UPDATE users_stena 
-                                     SET password ='$newChangePassword' 
-                                     WHERE login = '$oldChangeLogin';");
+        $makeChangePassword = $connection->prepare("UPDATE users_stena 
+                                     SET password =:password
+                                     WHERE login =:login;");
+        $arrMakeChangePassword = ['password'=>$newChangePassword, 'login'=>$oldChangeLogin];
+        $makeChangePassword->execute($arrMakeChangePassword);
 
         session_destroy();
         header('Location: index.php');

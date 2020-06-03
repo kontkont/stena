@@ -13,7 +13,7 @@ include_once 'connection_stena.php';
 
 include_once "function.php";
 
-$loginResetPassword = $_POST['loginResetPassword'];
+$loginResetPassword = htmlspecialchars($_POST['loginResetPassword']);
 $checkResetLogin = loginСheck($connection, $_POST, 'loginResetPassword', 'users_stena', 'login');
 
 if ($loginResetPassword && $checkResetLogin == TRUE)
