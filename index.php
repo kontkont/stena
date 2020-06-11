@@ -3,6 +3,8 @@
 session_start();
 ini_set('session.gc.maxlifetime', +3600);
 
+ob_start();
+
 if (!$_SESSION['login'] && !$_SESSION['password'])
 {
     include 'registration.php';
